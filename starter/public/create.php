@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
     try {
         $connection = new PDO($dsn, $username, $password, $options);
 
-        $new_user = array(
+        $newProduct = array(
             "itemname" => $_POST['itemname'],
             "quantity" => $_POST['quantity']
         );
@@ -19,12 +19,12 @@ if (isset($_POST['submit'])) {
         $sql = sprintf(
             "INSERT INTO %s (%s) values (%s)",
             "products",
-            implode(", ", array_keys($new_user)),
-            ":" . implode(", :", array_keys($new_user))
+            implode(", ", array_keys($newProduct)),
+            ":" . implode(", :", array_keys($newProduct))
         );
 
         $statement = $connection->prepare($sql);
-        $statement->execute($new_user);
+        $statement->execute($newProduct);
     } catch(PDOException $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
