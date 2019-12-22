@@ -8,7 +8,6 @@ require "config.php";
 try {
     session_start();
     $connection = new PDO("mysql:host=$host", $username, $password, $options);
-    $sql = file_get_contents("../data/fetch.sql");
     $stmt = $connection->query("SELECT * FROM dufunahelp.brands");
     $brands = array();
     while ($item = $stmt->fetch()) {
@@ -16,5 +15,5 @@ try {
     }
     $_SESSION['brands'] = $brands;
 } catch(PDOException $error) {
-    echo $sql . "<br>" . $error->getMessage();
+    echo $error->getMessage();
 }
