@@ -37,10 +37,9 @@ In create.php we display a small form where we use php to populate its select el
 And when we click submit on the form the product is inserted into the database in the appropriate table.
 
 Overview.php shows some columns form the product table in a table view.
+
 ## Contributors
 
 - [John Ohue](https://github.com/JohnItoo)
-
-See [CONTRIBUTING.md](https://github.com/JohnItoo/easy-test-flighting/blob/master/CONTRIBUTING.md)
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
