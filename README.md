@@ -38,6 +38,9 @@ And when we click submit on the form the product is inserted into the database i
 
 Overview.php shows some columns form the product table in a table view.
 
+
+*Update* :
+There were a couple of gotchas. As mentioned above, PHP's Session Object was used to show a usecase. create.php is eventually refactored to query all Brands in the same php script Just like in overview.php 
 ## Contributors
 
 - [John Ohue](https://github.com/JohnItoo)
