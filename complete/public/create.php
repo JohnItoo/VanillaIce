@@ -1,7 +1,21 @@
 <?php
+require "config.php";
+require "helper.php";
+
+$brands = [];
+try {
+    $connection = new PDO("mysql:host=$host", $username, $password, $options);
+    $stmt = $connection->query("SELECT * FROM dufunahelp.brands");
+    while ($item = $stmt->fetch()) {
+        $brands[$item['id']] = $item['brand_name'];
+    }
+} catch (PDOException $error) {
+    echo $error->getMessage();
+}
+?>
+
+<?php
 if (isset($_POST['submit'])) {
-    require "config.php";
-    require "helper.php";
 
     try {
         $connection = new PDO($dsn, $username, $password, $options);
@@ -9,7 +23,7 @@ if (isset($_POST['submit'])) {
         $newProduct = array(
             "itemname" => $_POST['itemname'],
             "quantity" => $_POST['quantity'],
-            "brand_id" => $_POST['brand'] + 1
+            "brand_id" => $_POST['brand']
         );
 
         /**
@@ -32,8 +46,9 @@ if (isset($_POST['submit'])) {
 ?>
 
 <?php if (isset($_POST['submit']) && $statement) { ?>
-    > <?php echo $_POST['itemname']; ?> successfully added.
-<?php } ?>
+    <?php echo $_POST['itemname']; ?> successfully added.
+<?php }
+?>
 
 
 <h2>Add A Product </h2>
@@ -41,11 +56,9 @@ if (isset($_POST['submit'])) {
 <form method="post">
     <label for="itemname">Name of Product</label>
     <input type="text" name="itemname" id="itemname">
-    <?php session_start(); ?>
-
     <select name="brand">
-        <?php for ($i = 0; $i < count($_SESSION['brands']); $i++) { ?>
-            <option value= <?php echo $i; ?>> <?php echo $_SESSION['brands'][$i] ?></option>
+        <?php foreach ($brands as $brandKey => $brandValue) { ?>
+            <option value= <?php echo $brandKey; ?>> <?php echo $brandValue ?></option>
         <?php } ?>
 
     </select>
@@ -55,6 +68,4 @@ if (isset($_POST['submit'])) {
 
     <input type="submit" name="submit" value="Submit">
 </form>
-
-
 <?php require "templates/footer.php"; ?>
